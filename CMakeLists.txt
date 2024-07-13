@@ -6,8 +6,6 @@ project (satsuma
     LANGUAGES C CXX
     )
 
-option(SATSUMA_ENABLE_BLOSSOM5 "Enable Blossom-V (non-free license)" OFF)
-
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
     message(FATAL_ERROR "In-source builds not allowed. Please make a new directory (called a build directory) and run CMake from there.")
 endif()
@@ -41,18 +39,6 @@ if(STANDALONE_BUILD)
         SOURCE_DIR "${EXTERNAL_DIR}/lemon"
         )
         FetchContent_MakeAvailable(lemon)
-    endif()
-
-
-    if(SATSUMA_ENABLE_BLOSSOM5)
-        if (NOT TARGET Blossom5::Blossom5)
-            FetchContent_Declare(blossom5-cmake
-                GIT_REPOSITORY https://github.com/cgg-bern/blossom5-cmake
-                GIT_TAG main
-                SOURCE_DIR "${EXTERNAL_DIR}/blossom5-cmake"
-                )
-            FetchContent_MakeAvailable(blossom5-cmake)
-        endif()
     endif()
 
     if (NOT TARGET Timekeeper::libTimekeeper)
