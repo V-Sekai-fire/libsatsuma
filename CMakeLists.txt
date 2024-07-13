@@ -25,34 +25,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY ON) # deprecated since CMake 3.16
 set(CMAKE_FIND_USE_PACKAGE_REGISTRY OFF) # since CMake 3.16
 
-include(FetchContent)
-set(FETCHCONTENT_QUIET OFF)
 set(EXTERNAL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/external")
-set(FETCHCONTENT_UPDATES_DISCONNECTED TRUE)
-
-if(STANDALONE_BUILD)
-    if (NOT TARGET lemon::lemon)
-        FetchContent_Declare(
-        lemon
-        GIT_REPOSITORY https://github.com/cgg-bern/lemon
-        GIT_TAG        cgg
-        SOURCE_DIR "${EXTERNAL_DIR}/lemon"
-        )
-        FetchContent_MakeAvailable(lemon)
-    endif()
-
-    if (NOT TARGET Timekeeper::libTimekeeper)
-        FetchContent_Declare(timekeeper
-            GIT_REPOSITORY https://github.com/cgg-bern/libTimekeeper
-            GIT_TAG main
-            SOURCE_DIR "${EXTERNAL_DIR}/timekeeper"
-            )
-        FetchContent_Populate(timekeeper)
-        add_subdirectory("${timekeeper_SOURCE_DIR}/src")
-    endif()
-endif()
 
 add_subdirectory(src)
+add_subdirectory(external/lemon)
+add_subdirectory(external/timekeeper)
 
 if(${SATSUMA_ENABLE_TESTS})
     enable_testing()
