@@ -1,0 +1,3 @@
+add_executable(skinned_mesh_capsule_example example.cc)
+target_link_libraries(skinned_mesh_capsule_example satsuma::satsuma)
+
